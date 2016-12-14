@@ -47,10 +47,19 @@ def print_n_words(words_dict, n, direction):
 			if counter == n:
 				return
 
+# получим список слов-исключений
+def get_exceptions_list():
+	file = open('exceptions.txt', 'r')
+	content = file.read()
+	file.close()
+	return content.split()
+
 files = {'Africa': 'newsafr.json',
 		'Cyprus': 'newscy.json', #файлы кипра и франции абсолютно идентичны!
 		'France': 'newsfr.json',
 		'Italy': 'newsit.json'}
+
+exceptions = get_exceptions_list()
 
 for file in files:
 	if file == 'Italy': #этот файл не парсится, ошибка такая же, как при попытках парсить xml
