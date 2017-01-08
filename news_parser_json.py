@@ -18,7 +18,10 @@ def get_text_list(file, encoding):
 		data = json.load(news)
 		text = ''
 		for element in data['rss']['channel']['item']:
-			text += ' ' + element['description']['__cdata']
+			if file == files['Italy']:
+				text += ' ' + element['description']  #['__cdata']
+			else:
+				text += ' ' + element['description']['__cdata']
 		return text.split(' ')
 
 # возвращает словарь вхождений слов, которые длиннее 6 символов
@@ -62,8 +65,6 @@ files = {'Africa': 'newsafr.json',
 exceptions = get_exceptions_list()
 
 for file in files:
-	if file == 'Italy': #этот файл не парсится, ошибка такая же, как при попытках парсить xml
-		continue 
 	print(file)
 	encoding = code_detecter(files[file])
 	text_list = get_text_list(files[file], encoding)
